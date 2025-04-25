@@ -2,19 +2,24 @@ package main
 
 import (
 	"log"
-//	"os"
-//	"strconv"
+	"os"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
 var (
-	adminID       = int64(6683327018) // ← замените на ваш Telegram ID
-	userStates    = make(map[int64]string)
+	adminID    = int64(6683327018) // ← замените на ваш Telegram ID
+	userStates = make(map[int64]string)
 )
 
 func main() {
-	botToken := "7697463697:AAFCaGLSt8kVF687zi425n2yiKO3nPsl1ac" // или вставьте токен прямо в код
+	log.Println("Starting bot...")
+
+	botToken := os.Getenv("TELEGRAM_BOT_TOKEN")
+	if botToken == "" {
+		log.Fatal("TELEGRAM_BOT_TOKEN is not set")
+	}
+
 	bot, err := tgbotapi.NewBotAPI(botToken)
 	if err != nil {
 		log.Panic(err)
